@@ -1,8 +1,15 @@
 <?php
 
 // Inclusion du fichier s'occupant de la connexion à la DB (TODO)
+require __DIR__.'/inc/db.php';
 
-// Initialisation de variables (TODO) (évite les "NOTICE - variable inexistante")
+$databaseConnexion = new DB;
+
+$pdo = $databaseConnexion->getPDO();
+
+
+
+// Initialisation de variables (évite les "NOTICE - variable inexistante")
 $bookList = array();
 $genreList = array();
 $name = '';
@@ -40,9 +47,7 @@ $genreList = array(
 
 
 // TODO #1 écrire la requête SQL permettant de récupérer les livres en base de données (mais ne pas l'exécuter maintenant)
-$sql = '
-
-';
+$sql = 'SELECT * from book';
 
 // Si un tri a été demandé, on réécrit la requête
 if (!empty($_GET['order'])) {
@@ -62,6 +67,10 @@ if (!empty($_GET['order'])) {
     }
 }
 // TODO #1 exécuter la requête contenue dans $sql et récupérer les valeurs dans la variable $BookList
+$pdoStatement = $pdo->query($sql);
+$bookList = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+var_dump($bookList);
 
 
-// Inclusion du fichier s'occupant d'afficher le code HTML (TODO)
+// Inclusion du fichier s'occupant d'afficher le code HTML 
+require __DIR__.'/view/book.php';
