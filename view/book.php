@@ -44,7 +44,7 @@
                         <td><?=$book['name'];?></td>
                         <td><?=$book['author'];?></td>
                         <td><?=$book['release_date'];?></td>
-                        <td><?=$book['genre_id'];?></td>
+                        <td><?=$genreList[$book['genre_id']];?></td>
                     </tr>
                     <?php endforeach;?>
                 </tbody>

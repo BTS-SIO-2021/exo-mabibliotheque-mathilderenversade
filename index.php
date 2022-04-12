@@ -21,7 +21,7 @@ $genre = '';
 if (!empty($_POST)) {
     // Récupération des valeurs du formulaire dans des variables // TO DO #3 (optionnel) valider les données reçues (ex: donnée non vide)
     // Je suis allée voir mon formulaire et la méthode d'envoi des données c'est POST donc je vais utiliser la super-globale $_POST
-    var_dump($_POST);
+    //var_dump($_POST);
     // ATTENTION LA DONNEE CONTENUE DANS $_POST VIENT D'UN UTILISATEUR DONC RISQUE D'ATTAQUE !! Je dois "purifier" la donnée reçue pour me protéger
     $name = isset($_POST['name']) ? $_POST['name'] : '';
     $name = htmlspecialchars($_POST['name']);
@@ -32,7 +32,7 @@ if (!empty($_POST)) {
     $genre=isset($_POST['genre']) ? $_POST['genre'] : '';
    
     $test = [$name, $author, $release_date, $genre];
-    var_dump($test);
+    //var_dump($test);
     
     // TO DO #3 Insertion en DB d'un livre
     $insertQuery = "INSERT into book (name, author, release_date, genre_id) VALUES (:name, :author, :release_date, :genre);";    
@@ -54,14 +54,11 @@ if (!empty($_POST)) {
 // Liste des Genres
 // TODO #4 récupérer cette liste depuis la base de données
 
-$genreList = array(
-    1 => 'Drame',
-    2 => 'Poésie',
-    3 => 'Je suis un genre statique',
-    4 => 'Salut'
-);
 
-
+$sqlGenre='SELECT * from genre;';
+$pdoStatement = $pdo->query($sqlGenre); 
+$genreList = $pdoStatement->fetchAll(PDO::FETCH_KEY_PAIR);
+var_dump($genreList);
 
 
 // TODO #1 écrire la requête SQL permettant de récupérer les livres en base de données (mais ne pas l'exécuter maintenant)
