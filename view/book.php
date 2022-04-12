@@ -37,20 +37,16 @@
                 <tbody>
                     <!-- TODO #1 boucler sur le tableau $bookList contenant tous les livres
                     (supprimez ces 2 lignes d'exemple) -->
+                    
+                    <?php foreach($bookList as $book):?>
                     <tr>
-                        <td>-</td>
-                        <td>Exemple</td>
-                        <td>à faire</td>
-                        <td>depuis</td>
-                        <td>la DB</td>
+                        <td><?=$book['id'];?></td>
+                        <td><?=$book['name'];?></td>
+                        <td><?=$book['author'];?></td>
+                        <td><?=$book['release_date'];?></td>
+                        <td><?=$book['genre_id'];?></td>
                     </tr>
-                    <tr>
-                        <td>-</td>
-                        <td>Les fleurs du mal</td>
-                        <td>Baudelaire Charles</td>
-                        <td>12-02-1857</td>
-                        <td>Poésie</td>
-                    </tr>
+                    <?php endforeach;?>
                 </tbody>
                 </table>
             </div>

@@ -55,21 +55,17 @@ if (!empty($_GET['order'])) {
     $order = trim($_GET['order']);
     if ($order == 'name') {
         // TODO #2 écrire la requête avec un tri par nom croissant
-        $sql = '
-            
-        ';
+        $sql = 'SELECT * from book ORDER BY name ASC';
     }
     else if ($order == 'author') {
         // TODO #2 écrire la requête avec un tri par autheur croissant
-        $sql = '
-     
-        ';
+        $sql = 'SELECT * from book ORDER BY author ASC';
     }
 }
 // TODO #1 exécuter la requête contenue dans $sql et récupérer les valeurs dans la variable $BookList
 $pdoStatement = $pdo->query($sql);
 $bookList = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
-var_dump($bookList);
+//var_dump($bookList);
 
 
 // Inclusion du fichier s'occupant d'afficher le code HTML 
