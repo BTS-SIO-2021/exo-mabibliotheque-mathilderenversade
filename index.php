@@ -20,16 +20,34 @@ $genre = '';
 // Si le formulaire a été soumis
 if (!empty($_POST)) {
     // Récupération des valeurs du formulaire dans des variables // TO DO #3 (optionnel) valider les données reçues (ex: donnée non vide)
+    // Je suis allée voir mon formulaire et la méthode d'envoi des données c'est POST donc je vais utiliser la super-globale $_POST
+    var_dump($_POST);
+    // ATTENTION LA DONNEE CONTENUE DANS $_POST VIENT D'UN UTILISATEUR DONC RISQUE D'ATTAQUE !! Je dois "purifier" la donnée reçue pour me protéger
+    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $name = htmlspecialchars($_POST['name']);
+    $name = strip_tags($name);
+    
+    $author = isset($_POST['author']) ? $_POST['author'] : '';
+    $release_date=isset($_POST['release_date']) ? $_POST['release_date'] : '';
+    $genre=isset($_POST['genre']) ? $_POST['genre'] : '';
+   
+    $test = [$name, $author, $release_date, $genre];
+    var_dump($test);
     
     // TO DO #3 Insertion en DB d'un livre
-    $insertQuery = "
- 
-    ";
+    $insertQuery = "INSERT into book (name, author, release_date, genre_id) VALUES (:name, :author, :release_date, :genre);";    
     // TODO #3 exécuter la requête qui insère les données
+    $requetePrepare = $pdo->prepare($insertQuery);
+    $requetePrepare->bindValue(':name', $name);
+    $requetePrepare->bindValue(':author', $author);
+    $requetePrepare->bindValue(':release_date', $release_date);
+    $requetePrepare->bindValue(':genre', $genre);
 
+    $resultats = $requetePrepare->execute();
+    var_dump($resultats);
 
     // TODO #3 une fois inséré, faire une redirection vers la page "index.php" (fonction header : https://www.php.net/manual/fr/function.header.php)
-
+    header('Location:index.php');
 
     }
 
